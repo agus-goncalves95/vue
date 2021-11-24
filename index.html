@@ -11,12 +11,47 @@
 </head>
 <body>
     <div id="app">
-      <div style="text-align: center; padding: 100px;">
-          <h3>Contador con vue</h3>
-          <h1> {{ numeroClick }}</h1>
-          <button v-on:click="restarClick()" type="button" class="btn btn-primary">-</button>
-          <button v-on:click="sumarClick()"  type="button" class="btn btn-success">+</button>
-      </div>
+     <div class="container">
+        <h1>App de tareas</h1>
+        <div class="row">
+            <div class="col col-lg-4">
+                <div class="card p-4">
+                    <h2>Agregar tareas</h2>
+                    <div class="label">Titulo</div>
+                    <!-- Usamos el v-model para poder tomar el dato y  acceder a esta variable en el data del js -->
+                    <input ref="titulo" v-model="inputTitulo" type="text">
+                    <div class="label">Descripcion</div>
+                    <input v-model="inputDescription" type="text">
+                    <br>
+                    <!-- Boton para agregar nueva tarea -->
+                   <button @click="agregarTarea()" class="btn btn-primary pt">Agregar</button>
+                   <!-- Va a usar el computed para contar la cantidad de tareas -->
+                   <h5 class="pt-3">Cantidad de tareas: {{cantidadTareas}}</span></h5>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <!-- Iterar cada tarea para que se cree desde el data -->
+                    <div v-for="(tarea, i) in tareas" class="col-4 pb-3">
+                        <div class="card p-4">
+                            <h4> {{ tarea.titulo }} </h4>
+                            <p> {{ tarea.description }}</p>
+                            <!-- Boton para borrar tarea, le pasamos el i para que sepa en que posicion del array se encuentra -->
+                            <button @click="eliminarTarea(i)" class="btn btn-danger">Borrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+     <!-- Notificacion que agregaste nueva tarea --> 
+
+        <div class="container">
+            <div v-if="alerta" class="alert alert-success" role="alert">
+                {{ textoAlerta }}
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
